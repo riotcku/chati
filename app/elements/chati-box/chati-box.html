@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="chati-box">
+  <style include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+
+    }
+
+    paper-toolbar {
+      color: var(--accent-color);
+      background-color: var(--drawer-menu-color);
+      border-bottom: var(--drawer-toolbar-border-color);
+    }
+  </style>
+  <template>
+    <!-- Drawer Toolbar -->
+    <paper-toolbar>
+      <span class="paper-font-title">Pick My Personality</span>
+    </paper-toolbar>
+
+    <!-- Drawer Content -->
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'chati-box',
+
+        properties: {
+          greeting: {
+            type: String,
+            value: 'Welcome!'
+          }
+        },
+
+        toggle: {
+
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

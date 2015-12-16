@@ -1,0 +1,78 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="chati-chat">
+  <style>
+    :host {
+      display: block;
+      @apply(--layout-vertical);
+      height: 100%;
+    }
+
+    .chat-box {
+      background-color: white;
+    }
+
+    .input-container {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      min-height: 80px;
+      background-color: gray;
+    }
+  </style>
+  <template>
+    {{log}}
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // var Chat = function() {
+      //   this.log = [];
+      //   this.length = 0;
+      // };
+      //
+      // Chat.prototype.enter = function(str) {
+      //   this.log.push(str);
+      //   this.length++;
+      //   console.log('entered ', str);
+      // };
+      //
+      // Chat.prototype.getLast = function() {
+      //   return this.log[this.log.length-1];
+      // };
+      //
+      // Chat.prototype.display = function() {
+      //
+      // }
+
+      Polymer({
+        is: 'chati-chat',
+
+        properties: {
+          input: {
+            type: String,
+            notify: true
+          },
+          log: {
+            type: Array,
+            notify: true,
+            value: new Array(0)
+          }
+        },
+
+        _enter: function(str){
+          console.log(str);
+          this.log.push(str);
+          console.log(this.log);
+        },
+
+        ready: function() {
+
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

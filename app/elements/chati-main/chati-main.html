@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="chati-main">
+  <style>
+    :host {
+      display: block;
+      @apply(--layout-vertical);
+      height: 100%;
+    }
+
+    .chat-box {
+      background-color: white;
+    }
+
+    .input-container {
+      border-top: 1px solid black;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      min-height: 80px;
+      background-color: white;
+    }
+  </style>
+  <template>
+    <!-- Chatting Interface-->
+    <div class="chat-box flex">
+      <chati-chat id="chatiChat"></chati-chat>
+      <!-- <input is="iron-input" bind-value="{{bindValue}}" value="{{value::input}}"> -->
+
+    </div>
+    <!-- Input Box -->
+    <div class="input-container">
+        <paper-input id="mainInput"
+          value="{{newChat}}"
+          label="Type here!" autofocus></paper-input>
+        <button on-click="_enterChat">set</button>
+        <iron-a11y-keys keys="enter" on-keys-pressed="_enterChat"></iron-a11y-keys>
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'chati-main',
+
+        listeners: {
+          chatiInput: 'enterChat'
+        },
+
+        properties: {
+          newChat: {
+            type: String,
+            notify: true,
+            value: ''
+          }
+        },
+
+        _enterChat: function(){
+          this.$.chatiChat._enter(this.newChat);
+          this.newChat = '';
+        },
+
+        _clearChat: function() {
+          this.newChat = '';
+        },
+
+        ready: function() {
+
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

@@ -21,31 +21,14 @@
     }
   </style>
   <template>
-    {{log}}
+    <div>{{log}}</div>
+    <div>{{personality}}</div>
+
   </template>
 
   <script>
     (function() {
       'use strict';
-
-      // var Chat = function() {
-      //   this.log = [];
-      //   this.length = 0;
-      // };
-      //
-      // Chat.prototype.enter = function(str) {
-      //   this.log.push(str);
-      //   this.length++;
-      //   console.log('entered ', str);
-      // };
-      //
-      // Chat.prototype.getLast = function() {
-      //   return this.log[this.log.length-1];
-      // };
-      //
-      // Chat.prototype.display = function() {
-      //
-      // }
 
       Polymer({
         is: 'chati-chat',
@@ -59,6 +42,10 @@
             type: Array,
             notify: true,
             value: new Array(0)
+          },
+          personality: {
+            type: String,
+            notify: true
           }
         },
 
@@ -69,7 +56,7 @@
         },
 
         ready: function() {
-
+          console.log(this.personality);
         }
       });
     })();

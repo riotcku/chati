@@ -20,6 +20,10 @@
     </paper-toolbar>
 
     <!-- Drawer Content -->
+    <paper-menu selected="{{menuIndex}}">
+      <paper-item>Default</paper-item>
+      <paper-item>Parrot</paper-item>
+    </paper-menu>
 
   </template>
 
@@ -31,14 +35,30 @@
         is: 'chati-box',
 
         properties: {
-          greeting: {
+          currType: {
             type: String,
-            value: 'Welcome!'
+            notify: true
+          },
+          menuIndex: {
+            type: Number,
+            notify: true,
+            value: 0,
+            observer: '_onMenuChange'
           }
         },
 
-        toggle: {
+        _onMenuChange: function(newIndex) {
+          console.log(newIndex);
+          if (newIndex === 0) {
+            this.currType = 'default'
+          }
+          if (newIndex === 1) {
+            this.currType = 'parrot'
+          }
+        },
 
+        ready: function() {
+          console.log('box here.', this.currType);
         }
       });
     })();

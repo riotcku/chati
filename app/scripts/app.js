@@ -72,4 +72,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     document.getElementById('mainContainer').scrollTop = 0;
   };
 
+  app.chatiPersonality = {
+    type: String,
+    value: 'default',
+    notify: true,
+    observer: 'update'
+  };
+  app.update = function() {
+    console.log('hi world');
+  }
+
 })(document);

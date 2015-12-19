@@ -23,6 +23,8 @@
     <paper-menu selected="{{menuIndex}}">
       <paper-item>Default</paper-item>
       <paper-item>Parrot</paper-item>
+      <paper-item>Sympathetic</paper-item>
+      <paper-item>Loud</paper-item>
     </paper-menu>
 
   </template>
@@ -54,6 +56,12 @@
           }
           if (newIndex === 1) {
             this.currType = 'parrot'
+          }
+          if (newIndex === 2) {
+            this.currType = 'sympathetic'
+          }
+          if (newIndex === 3) {
+            this.currType = 'loud'
           }
         },
 

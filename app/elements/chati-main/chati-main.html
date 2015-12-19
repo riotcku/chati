@@ -6,6 +6,7 @@
       display: block;
       @apply(--layout-vertical);
       height: 100%;
+      border: 1px solid #333;
     }
 
     .chat-box {
@@ -37,10 +38,11 @@
           no-label-float
           value="{{newChat}}"
           label="Press Enter to send." autofocus></paper-input>
+        <iron-a11y-keys keys="enter" on-keys-pressed="_enterChat"></iron-a11y-keys>
       </span>
       <span class="input-right flex-2">
         <paper-button raised id="chat-button" on-click="_enterChat">Chat</paper-button>
-        <iron-a11y-keys keys="enter" on-keys-pressed="_enterChat"></iron-a11y-keys>
+
       </span>
     </div>
   </template>
@@ -68,7 +70,7 @@
           }
         },
 
-        _enterChat: function(){
+        _enterChat: function() {
           this.$.chatiChat._enter(this.newChat);
           this.newChat = '';
         },
@@ -76,6 +78,8 @@
         _clearChat: function() {
           this.newChat = '';
         },
+
+
 
         ready: function() {
           console.log(this.chatiType);

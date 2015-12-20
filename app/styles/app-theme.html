@@ -34,6 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --secondary-text-color: #727272;
     --disabled-text-color: #bdbdbd;
     --divider-color: #B6B6B6;
+    --chati-font: 'Inconsolata';
 
     /* Components */
 
@@ -134,6 +135,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     /* Required for main area's paper-scroll-header-panel custom condensing transformation */
     -webkit-transform-origin: left center;
     transform-origin: left center;
+  }
+
+  .mainToolbarLabel {
+    font-family: var(--chati-font);
+
+  }
+
+  .mainToolbarLabel:hover {
+    color: var(--accent-color);
+    cursor: pointer;
+  }
+
+  .mainToolbarLabel:active {
+    color: var(--dark-primary-color);
   }
 
   /* Height of the scroll area */

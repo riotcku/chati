@@ -58,6 +58,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.Base.transform('scale(' + scaleMiddle + ') translateZ(0)', appName);
   });
 
+  addEventListener('curr-type-changed', function(e) {
+    console.log('hihi');
+  });
+
+  addEventListener('chati-personality-changed', function(e) {
+    console.log('hihi');
+  });
+
 
   // Close drawer after menu item is selected if drawerPanel is narrow
   app.onDataRouteClick = function() {
@@ -72,12 +80,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     document.getElementById('mainContainer').scrollTop = 0;
   };
 
+  // polymer property that's distributed down to chati-chat from chati-box element
   app.chatiPersonality = {
     type: String,
     value: 'default',
     notify: true,
-    observer: 'update'
+    observer: 'focusChat'
   };
+
+  app.focusChat = function() {
+    var input = document.getElementById('mainInput');
+    if (input)
+      input.focus();
+  }
+
+  app.clearChat = function() {
+    var chati = document.getElementById('chatiMain');
+    if (chati)
+      chati._clearChat();
+
+    this.focusChat();
+  }
+
   app.update = function() {
     console.log('hi world');
   }

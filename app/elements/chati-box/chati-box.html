@@ -5,12 +5,22 @@
   <style>
     :host {
       display: block;
+      border-left: var(--drawer-toolbar-border-color);
     }
 
     paper-toolbar {
       color: var(--default-primary-color);
       background-color: var(--drawer-menu-color);
       border-bottom: var(--drawer-toolbar-border-color);
+    }
+
+    paper-menu {
+      padding-top: 0;
+      --paper-menu-selected-item: {
+        background: var(--accent-color);
+        color: white;
+      }
+
     }
   </style>
   <template>
@@ -20,6 +30,7 @@
     </paper-toolbar>
 
     <!-- Drawer Content -->
+
     <paper-menu selected="{{menuIndex}}">
       <paper-item>Default</paper-item>
       <paper-item>Parrot</paper-item>
@@ -50,7 +61,6 @@
         },
 
         _onMenuChange: function(newIndex) {
-          console.log(newIndex);
           if (newIndex === 0) {
             this.currType = 'default'
           }
@@ -63,6 +73,7 @@
           if (newIndex === 3) {
             this.currType = 'loud'
           }
+          this.fire('typeChange');
         },
 
         ready: function() {

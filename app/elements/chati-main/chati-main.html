@@ -6,7 +6,6 @@
       display: block;
       @apply(--layout-vertical);
       height: 100%;
-      border: 1px solid #333;
     }
 
     .chat-box {
@@ -15,12 +14,28 @@
 
     .input-container {
       @apply(--layout-horizontal);
-      border-top: 1px solid black;
+      border-top: 1px solid #ccc;
       position: absolute;
       bottom: 0;
       width: 100%;
       min-height: 80px;
       background-color: white;
+    }
+
+    .input-left {
+      padding: 15px;
+      padding-top: 20px;
+    }
+
+    paper-icon-button.send-button {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      color: var(--chati-teal);
+    }
+
+    paper-icon-button.send-button:hover {
+      color: var(--chati-blue);
     }
   </style>
   <template>
@@ -33,16 +48,14 @@
     </div>
     <!-- Input Box -->
     <div class="input-container">
-      <span class="input-left flex-10">
+      <span class="input-left flex-12">
         <paper-input id="mainInput"
           no-label-float
           value="{{newChat}}"
           label="Press Enter to send." autofocus></paper-input>
         <iron-a11y-keys keys="enter" on-keys-pressed="_enterChat"></iron-a11y-keys>
-      </span>
-      <span class="input-right flex-2">
-        <paper-button raised id="chat-button" on-click="_enterChat">Chat</paper-button>
-
+        <paper-icon-button  class="send-button"
+          icon="send" on-click="_enterChat"></paper-icon-button>
       </span>
     </div>
   </template>
@@ -54,10 +67,6 @@
       Polymer({
         is: 'chati-main',
 
-        listeners: {
-          chatiInput: 'enterChat'
-        },
-
         properties: {
           newChat: {
             type: String,
@@ -66,17 +75,27 @@
           },
           chatiType: {
             type: String,
-            notify: true
+            notify: true,
+            observer: 'chatiTypeChange'
           }
+        },
+
+        chatiTypeChange: function() {
+          this.focusChat();
+        },
+
+        focusChat: function() {
+          this.$.mainInput.focus();
         },
 
         _enterChat: function() {
           this.$.chatiChat._enter(this.newChat);
           this.newChat = '';
+          this.focusChat();
         },
 
         _clearChat: function() {
-          this.newChat = '';
+          this.$.chatiChat._clear();
         },
 
 

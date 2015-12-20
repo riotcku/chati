@@ -13,12 +13,12 @@ Google Chrome, Mac OSX
 
 Unzip the given .zip file (If you don't have it, ask me!)
 
-    step 1: have nodejs, gulp and bower
+####step 1: have nodejs, gulp and bower
 https://www.nodejs.com/
 http://gulpjs.com/
 http://bower.io/
 
-    step 2: run the following command after navigating to the unzipped directory in your terminal
+####step 2: run the following command after navigating to the unzipped directory in your terminal
 
 ```shell
     npm install -g gulp bower && npm install && bower install
@@ -31,5 +31,7 @@ Go to the directory that contains chati
 ```shell
     gulp serve
 ```
+
+
 
 Made by Chris Ku

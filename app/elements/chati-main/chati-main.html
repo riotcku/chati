@@ -1,0 +1,110 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="chati-main">
+  <style>
+    :host {
+      display: block;
+      @apply(--layout-vertical);
+      height: 100%;
+    }
+
+    .chat-box {
+      background-color: white;
+    }
+
+    .input-container {
+      @apply(--layout-horizontal);
+      border-top: 1px solid #ccc;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      min-height: 80px;
+      background-color: white;
+    }
+
+    .input-left {
+      padding: 15px;
+      padding-top: 20px;
+    }
+
+    paper-icon-button.send-button {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      color: var(--chati-teal);
+    }
+
+    paper-icon-button.send-button:hover {
+      color: var(--chati-blue);
+    }
+  </style>
+  <template>
+    <!-- Chatting Interface-->
+    <div class="chat-box flex">
+      <chati-chat id="chatiChat"
+        personality="{{chatiType}}"></chati-chat>
+      <!-- <input is="iron-input" bind-value="{{bindValue}}" value="{{value::input}}"> -->
+
+    </div>
+    <!-- Input Box -->
+    <div class="input-container">
+      <span class="input-left flex-12">
+        <paper-input id="mainInput"
+          no-label-float
+          value="{{newChat}}"
+          label="Press Enter to send." autofocus></paper-input>
+        <iron-a11y-keys keys="enter" on-keys-pressed="_enterChat"></iron-a11y-keys>
+        <paper-icon-button  class="send-button"
+          icon="send" on-click="_enterChat"></paper-icon-button>
+      </span>
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'chati-main',
+
+        properties: {
+          newChat: {
+            type: String,
+            notify: true,
+            value: ''
+          },
+          chatiType: {
+            type: String,
+            notify: true,
+            observer: 'chatiTypeChange'
+          }
+        },
+
+        chatiTypeChange: function() {
+          this.focusChat();
+        },
+
+        focusChat: function() {
+          this.$.mainInput.focus();
+        },
+
+        _enterChat: function() {
+          this.$.chatiChat._enter(this.newChat);
+          this.newChat = '';
+          this.focusChat();
+        },
+
+        _clearChat: function() {
+          this.$.chatiChat._clear();
+        },
+
+
+
+        ready: function() {
+          console.log(this.chatiType);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

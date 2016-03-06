@@ -1,0 +1,179 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="chati-chat">
+  <style>
+    :host {
+      display: block;
+      @apply(--layout-vertical);
+      height: 100%;
+    }
+
+    .main-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 80px;
+      padding: 5px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .chat-box {
+      background-color: white;
+    }
+
+    .input-container {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      min-height: 80px;
+      background-color: gray;
+    }
+    .one-convo {
+
+    }
+    .chat-user {
+      width: 100%;
+      text-align: right;
+      padding: 5px;
+    }
+
+    .chat-chati {
+      width: 100%;
+      text-align: left;
+      font-family: 'Inconsolata';
+    }
+
+    iron-list {
+      padding: 15px;
+      height: inherit;
+    }
+  </style>
+  <template>
+    <div class="main-face" id="mainChatiFace">
+      <iron-list id = "chatList"
+        items = "[[log]]"
+        as = "item">
+        <template>
+          <div class="one-convo">
+            <div class="chat-user">
+              [[item.input]]
+            </div>
+            <div class="chat-chati">
+              [[item.response]]
+            </div>
+          </div>
+        </template>
+      </iron-list>
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'chati-chat',
+
+        properties: {
+          response: String,
+          input: {
+            type: String,
+            notify: true
+          },
+          log: {
+            type: Array,
+            notify: true,
+            value: new Array(0)
+          },
+          personality: {
+            type: String,
+            notify: true
+          }
+        },
+
+        // polymer must push items to the list to keep things synced
+        addChat: function(chat) {
+          var respond = this.makeResponse(chat);
+          this.push('log', {
+            input: chat,
+            response: respond
+          });
+        },
+
+        makeResponse: function(str) {
+
+          var pickRandom = function(arr) {
+            var rand = Math.floor( Math.random() * arr.length );
+            return arr[rand];
+          }
+          // default chati is very uncaring.
+          if (this.personality == 'default') {
+
+            var responses = ['ok human', 'k human', '...', 'how very uninteresting',
+            'i am bored, human', 'i do not care nor understand',
+            'k', 'was that even a word, human'];
+
+            return pickRandom(responses);
+
+          } else if (this.personality == 'parrot') {
+            // easy peasy
+            return str;
+          // maybe more like encouraging than sympathetic?
+          } else if (this.personality == 'sympathetic') {
+
+            var responses = ['I see. Thanks for that input.',
+            'Mmm, yes.', 'Thank you for that.', 'Tell me more.',
+            'I appreciated that.', 'Definitely.', 'I liked that.',
+            'You certainly have a way with words.', 'Riveting.'];
+
+            var rand = Math.floor( Math.random() * 10 );
+
+            if (rand > 5)
+              return str + ", you say? "+ pickRandom(responses);
+            else
+              return pickRandom(responses);
+
+          } else if (this.personality == 'loud') {
+            var responses = ['OH MY GOD HUMAN', 'AHHHHHHHH',
+            '*VUVUZELA BLARE*', '*AIRHORN BLARE*'];
+
+            return pickRandom(responses);
+          }
+        },
+
+        scrollDown: function(item) {
+          item.scrollTop = item.scrollHeight;
+        },
+
+        _clear: function() {
+          var length = this.log.length;
+          this.splice('log', 0, length);
+        },
+
+        _enter: function(str){
+          if (str === '') {
+            return;
+          }
+          var mainface = this.$.mainChatiFace;
+          this.addChat(str);
+
+          // I swear there's no callback embedded into iron-list update
+          // I just didn't want to implement my own callback API into iron-list
+          setTimeout(function(){
+            mainface.scrollTop = mainface.scrollHeight;
+          }, 0);
+
+          // Scroll to bottom and notify chatlist to resize self
+          // mainface.scrollTop = mainface.scrollHeight;
+        },
+
+        ready: function() {
+
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

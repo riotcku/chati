@@ -1,0 +1,86 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="chati-box">
+  <style include="shared-styles"></style>
+  <style>
+    :host {
+      display: block;
+      border-left: var(--drawer-toolbar-border-color);
+    }
+
+    paper-toolbar {
+      color: var(--default-primary-color);
+      background-color: var(--drawer-menu-color);
+      border-bottom: var(--drawer-toolbar-border-color);
+    }
+
+    paper-menu {
+      padding-top: 0;
+      --paper-menu-selected-item: {
+        background: var(--accent-color);
+        color: white;
+      }
+
+    }
+  </style>
+  <template>
+    <!-- Drawer Toolbar -->
+    <paper-toolbar>
+      <span class="paper-font-title">Pick My Personality</span>
+    </paper-toolbar>
+
+    <!-- Drawer Content -->
+
+    <paper-menu selected="{{menuIndex}}">
+      <paper-item>Default</paper-item>
+      <paper-item>Parrot</paper-item>
+      <paper-item>Sympathetic</paper-item>
+      <paper-item>Loud</paper-item>
+    </paper-menu>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'chati-box',
+
+        properties: {
+          currType: {
+            type: String,
+            notify: true
+          },
+          menuIndex: {
+            type: Number,
+            notify: true,
+            value: 0,
+            observer: '_onMenuChange'
+          }
+        },
+
+        _onMenuChange: function(newIndex) {
+          if (newIndex === 0) {
+            this.currType = 'default'
+          }
+          if (newIndex === 1) {
+            this.currType = 'parrot'
+          }
+          if (newIndex === 2) {
+            this.currType = 'sympathetic'
+          }
+          if (newIndex === 3) {
+            this.currType = 'loud'
+          }
+          this.fire('typeChange');
+        },
+
+        ready: function() {
+          console.log('box here.', this.currType);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
